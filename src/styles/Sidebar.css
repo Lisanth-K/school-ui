@@ -1,0 +1,136 @@
+/* Sidebar Main Container */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: #1d395e; /* Deep navy theme */
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Logo Section */
+.sidebar-logo {
+    padding: 25px 25px 10px 25px;
+}
+
+.sidebar-logo h2 {
+    margin: 0;
+    font-size: 22px;
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Admin Profile Section */
+.sidebar-profile {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px 20px 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Faint line */
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    background: #ffffff; /* Solid white circle */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-name {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.admin-role {
+    color: #94a3b8; /* Muted grey */
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+/* Navigation Section */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 15px;
+    overflow-y: auto; /* Scroll if menus are too long */
+}
+
+/* Hide scrollbar for nav */
+.sidebar-nav::-webkit-scrollbar {
+    width: 4px;
+}
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.nav-section-title {
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 15px 0 5px 10px;
+}
+
+/* Individual Nav Items */
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    color: #cbd5e1; /* Light grey text */
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    gap: 12px;
+}
+
+.nav-icon {
+    color: #94a3b8; /* Muted icon color */
+    transition: all 0.3s ease;
+}
+
+.nav-text {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Hover Effect */
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+}
+
+.nav-item:hover .nav-icon {
+    color: #ffffff;
+}
+
+/* Active State Effect (When clicked/current page) */
+.nav-item.active {
+    background-color: rgba(255, 255, 255, 0.1); /* Highlight background */
+    color: #ffffff;
+    border-left: 4px solid #3b82f6; /* Blue indicator line on the left */
+}
+
+.nav-item.active .nav-icon {
+    color: #3b82f6; /* Active icon color */
+}
