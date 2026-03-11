@@ -6,6 +6,7 @@ import './App.css';
 // Admin Pages Import
 import AcademicYear from './pages/admin/AcademicYear';
 import SubjectManagement from './pages/admin/SubjectManagement';
+import ClassesManagement from './pages/admin/ClassesManagement';
 
 function App() {
   return (
@@ -28,9 +29,7 @@ function App() {
             {/* Admin Routes */}
             <Route path="/admin/academic-years" element={<AcademicYear />} />
             <Route path="/admin/subjects" element={<SubjectManagement />} />
-            
-            {/* Temporary route to stop the warning until you create ClassManagement.jsx */}
-            <Route path="/admin/classes" element={<div style={{padding: '30px'}}><h2>Class Management coming soon...</h2></div>} />
+            <Route path="/admin/classes" element={<ClassesManagement />} />
             
           </Routes>
         </div>
