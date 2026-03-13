@@ -7,6 +7,9 @@ import './App.css';
 import AcademicYear from './pages/admin/AcademicYear';
 import SubjectManagement from './pages/admin/SubjectManagement';
 import ClassesManagement from './pages/admin/ClassesManagement';
+import ExamsManagement from './pages/admin/ExamsManagement';
+import ExamResultsManagement from './pages/admin/ExamResultsManagement';
+import StudentsList from './pages/admin/StudentsList';
 
 function App() {
   return (
@@ -30,6 +33,9 @@ function App() {
             <Route path="/admin/academic-years" element={<AcademicYear />} />
             <Route path="/admin/subjects" element={<SubjectManagement />} />
             <Route path="/admin/classes" element={<ClassesManagement />} />
+            <Route path="/admin/exams" element={<ExamsManagement />} />
+            <Route path="/admin/exam-results" element={<ExamResultsManagement />} />
+            <Route path="/admin/students" element={<StudentsList />} />
             
           </Routes>
         </div>

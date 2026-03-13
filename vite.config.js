@@ -4,4 +4,18 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    // ============================================================
+    // 🔧 PROXY CONFIG — Change 'target' to your backend URL
+    // ============================================================
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8000',  // ← Your backend server URL
+        changeOrigin: true,
+        secure: false,
+        // If your backend doesn't have /api prefix, uncomment below:
+        // rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 })
