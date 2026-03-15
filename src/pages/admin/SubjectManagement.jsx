@@ -12,22 +12,47 @@ const SubjectManagement = () => {
         is_elective: false,
         has_practical: false
     });
+    const [editingId, setEditingId] = useState(null);
 
-    // Page load aagumpothu backend-la irunthu data-va edukka (Ippo mock data-va irukkum)
     useEffect(() => {
-        // Backend connect pannumpothu fetchSubjects() function-ah inga call pannuvom
-        // Ippothiku table paaka eppadi irukkum-nu theriyura mari dummy data:
         setSubjects([
             { id: 1, name: 'Mathematics', short_code: 'MAT101', is_elective: false, has_practical: false },
             { id: 2, name: 'Physics', short_code: 'PHY101', is_elective: false, has_practical: true },
         ]);
     }, []);
 
+    const handleRemove = (id) => {
+        setSubjects(prev => prev.filter(s => s.id !== id));
+        if (editingId === id) {
+            setEditingId(null);
+            setFormData({ name: '', short_code: '', is_elective: false, has_practical: false });
+        }
+    };
+
+    const handleEdit = (subject) => {
+        setEditingId(subject.id);
+        setFormData({
+            name: subject.name,
+            short_code: subject.short_code || '',
+            is_elective: subject.is_elective || false,
+            has_practical: subject.has_practical || false
+        });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Submitting to backend:", formData);
-        alert("Subject details saved successfully!");
-        // Submit panna appuram form reset panna:
+        const payload = {
+            name: formData.name,
+            short_code: formData.short_code,
+            is_elective: formData.is_elective,
+            has_practical: formData.has_practical
+        };
+        if (editingId) {
+            setSubjects(prev => prev.map(s => (s.id === editingId ? { ...s, ...payload } : s)));
+            setEditingId(null);
+        } else {
+            setSubjects(prev => [...prev, { id: Date.now(), ...payload }]);
+        }
         setFormData({ name: '', short_code: '', is_elective: false, has_practical: false });
     };
 
@@ -91,8 +116,18 @@ const SubjectManagement = () => {
 
                         <div className="form-actions">
                             <button type="submit" className="submit-btn">
-                                Save Subject Details
+                                {editingId ? 'Update Subject' : 'Save Subject Details'}
                             </button>
+                            {editingId && (
+                                <button
+                                    type="button"
+                                    className="status-toggle-btn"
+                                    style={{ marginLeft: '10px' }}
+                                    onClick={() => { setEditingId(null); setFormData({ name: '', short_code: '', is_elective: false, has_practical: false }); }}
+                                >
+                                    Cancel
+                                </button>
+                            )}
                         </div>
                     </form>
                 </div>
@@ -126,8 +161,8 @@ const SubjectManagement = () => {
                                         {sub.has_practical ? '✅ Yes' : '❌ No'}
                                     </td>
                                     <td className="action-cell">
-                                        <button className="action-icon edit"><Edit size={18} /></button>
-                                        <button className="action-icon delete"><Trash2 size={18} /></button>
+                                        <button type="button" className="action-icon edit" onClick={() => handleEdit(sub)} title="Edit"><Edit size={18} /></button>
+                                        <button type="button" className="action-icon delete" onClick={() => handleRemove(sub.id)} title="Remove"><Trash2 size={18} /></button>
                                     </td>
                                 </tr>
                             ))}

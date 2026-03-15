@@ -5,10 +5,13 @@ import {
     Calendar, 
     BookOpen, 
     Layers, 
+    LayoutGrid,
     Users, 
     UserPlus, 
     ClipboardList, 
-    Award 
+    Award,
+    UserCircle,
+    UserCog
 } from 'lucide-react';
 import '../styles/Sidebar.css';
 
@@ -47,12 +50,22 @@ const Sidebar = () => {
 
                 <NavLink to="/admin/classes" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
                     <Layers className="nav-icon" size={20} />
-                    <span className="nav-text">Classes & Sections</span>
+                    <span className="nav-text">Classes</span>
+                </NavLink>
+
+                <NavLink to="/admin/sections" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+                    <LayoutGrid className="nav-icon" size={20} />
+                    <span className="nav-text">Sections</span>
                 </NavLink>
 
                 <NavLink to="/admin/subjects" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
                     <BookOpen className="nav-icon" size={20} />
                     <span className="nav-text">Subjects</span>
+                </NavLink>
+
+                <NavLink to="/admin/class-subjects" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+                    <Layers className="nav-icon" size={20} />
+                    <span className="nav-text">Class Subjects</span>
                 </NavLink>
 
                 <div className="nav-section-title">STUDENTS</div>
@@ -77,6 +90,18 @@ const Sidebar = () => {
                 <NavLink to="/admin/exam-results" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
                     <Award className="nav-icon" size={20} />
                     <span className="nav-text">Exam Results</span>
+                </NavLink>
+
+                <div className="nav-section-title">USERS & PROFILES</div>
+
+                <NavLink to="/admin/users" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+                    <UserCog className="nav-icon" size={20} />
+                    <span className="nav-text">Users</span>
+                </NavLink>
+
+                <NavLink to="/admin/profiles" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+                    <UserCircle className="nav-icon" size={20} />
+                    <span className="nav-text">Profiles</span>
                 </NavLink>
             </div>
         </div>

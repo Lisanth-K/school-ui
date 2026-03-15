@@ -198,3 +198,15 @@
     font-weight: 500;
     cursor: pointer;
 }
+
+.status-toggle-btn {
+    background: transparent;
+    border: 1px solid #1d395e;
+    color: #1d395e;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.status-toggle-btn:hover { background: #1d395e; color: white; }

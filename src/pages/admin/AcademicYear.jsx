@@ -8,25 +8,41 @@ const AcademicYear = () => {
         { id: 2, year_name: '2024-2025', start_date: '2024-06-01', end_date: '2025-04-30', is_active: true }
     ]);
     const [formData, setFormData] = useState({ year_name: '', start_date: '', end_date: '' });
+    const [editingId, setEditingId] = useState(null);
 
-    // Status Change Logic
     const handleStatusChange = (id) => {
-        // Mocking backend update: 
-        // 1. One year can be active at a time
-        // 2. Set selected year as true, others as false
-        const updatedYears = years.map(y => ({
+        setYears(prev => prev.map(y => ({
             ...y,
-            is_active: y.id === id ? true : false
-        }));
-        
-        setYears(updatedYears);
-        console.log(`Status changed for ID: ${id}. Backend sync required here.`);
+            is_active: y.id === id
+        })));
+    };
+
+    const handleRemove = (id) => {
+        setYears(prev => prev.filter(y => y.id !== id));
+        if (editingId === id) {
+            setEditingId(null);
+            setFormData({ year_name: '', start_date: '', end_date: '' });
+        }
+    };
+
+    const handleEdit = (year) => {
+        setEditingId(year.id);
+        setFormData({
+            year_name: year.year_name,
+            start_date: year.start_date,
+            end_date: year.end_date
+        });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newYear = { ...formData, id: Date.now(), is_active: false };
-        setYears([...years, newYear]);
+        const payload = { year_name: formData.year_name, start_date: formData.start_date, end_date: formData.end_date };
+        if (editingId) {
+            setYears(prev => prev.map(y => (y.id === editingId ? { ...y, ...payload } : y)));
+            setEditingId(null);
+        } else {
+            setYears(prev => [...prev, { ...payload, id: Date.now(), is_active: false }]);
+        }
         setFormData({ year_name: '', start_date: '', end_date: '' });
     };
 
@@ -54,7 +70,19 @@ const AcademicYear = () => {
                                 <input type="date" value={formData.end_date} onChange={(e) => setFormData({...formData, end_date: e.target.value})} required />
                             </div>
                         </div>
-                        <button type="submit" className="theme-btn-primary" style={{marginTop: '10px'}}>Register Year</button>
+                        <button type="submit" className="theme-btn-primary" style={{marginTop: '10px'}}>
+                            {editingId ? 'Update Year' : 'Register Year'}
+                        </button>
+                        {editingId && (
+                            <button
+                                type="button"
+                                className="status-toggle-btn"
+                                style={{ marginLeft: '10px', marginTop: '10px' }}
+                                onClick={() => { setEditingId(null); setFormData({ year_name: '', start_date: '', end_date: '' }); }}
+                            >
+                                Cancel
+                            </button>
+                        )}
                     </form>
                 </div>
             </div>
@@ -81,15 +109,14 @@ const AcademicYear = () => {
                                             {y.is_active ? 'Active' : 'Archived'}
                                         </span>
                                     </td>
-                                    <td>
+                                    <td className="action-cell">
                                         {!y.is_active && (
-                                            <button 
-                                                onClick={() => handleStatusChange(y.id)}
-                                                className="status-toggle-btn"
-                                            >
+                                            <button type="button" onClick={() => handleStatusChange(y.id)} className="status-toggle-btn">
                                                 Set Active
                                             </button>
                                         )}
+                                        <button type="button" className="status-toggle-btn" onClick={() => handleEdit(y)}>Edit</button>
+                                        <button type="button" className="status-toggle-btn action-remove" onClick={() => handleRemove(y.id)}>Remove</button>
                                     </td>
                                 </tr>
                             ))}
