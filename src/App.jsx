@@ -14,6 +14,7 @@ import Exams from './pages/admin/Exams';
 import ExamResults from './pages/admin/ExamResults';
 import Users from './pages/admin/Users';
 import Profiles from './pages/admin/Profiles';
+import ClassesManagement from './pages/admin/ClassesManagement';
 
 function App() {
   return (
@@ -45,6 +46,8 @@ function App() {
             <Route path="/admin/exam-results" element={<ExamResults />} />
             <Route path="/admin/users" element={<Users />} />
             <Route path="/admin/profiles" element={<Profiles />} />
+            <Route path="/admin/classes" element={<ClassesManagement />} />
+            
           </Routes>
         </div>
       </div>
